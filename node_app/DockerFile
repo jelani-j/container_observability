@@ -1,13 +1,14 @@
-# Use official Nginx image
+# Use official Nginx image to serve static files
 FROM nginx:alpine
 
-# Remove the default Nginx website
+# Remove the default Nginx HTML files
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy your website files into the Nginx web root
 COPY website_layout/ /usr/share/nginx/html/
 
+# Optional: if you have a data.json file, copy it too
+# COPY data.json /usr/share/nginx/html/
+
 # Expose port 80
 EXPOSE 80
-
-# Nginx runs automatically as the default CMD
