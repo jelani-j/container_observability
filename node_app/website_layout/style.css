@@ -1,0 +1,74 @@
+  body {
+    background-color: rgb(45, 47, 48);
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    margin-bottom: 100px;
+    clear: both;
+  }
+  .header {
+    border-radius: 25px;
+    background-color: rgb(71, 135, 155);
+    padding: 20px;
+    width:auto;
+    height: auto;
+  }
+  h1 {
+    color: rgb(22, 22, 94);
+    text-align: center;
+    font-size: x-large;
+  }
+  p {
+    color: rgb(170, 218, 206);
+    text-align: center;
+    font-size: large;
+  }
+  .content-wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+    border: rgb(7, 211, 194);
+  }
+  .World-News-Buttons{
+    display: grid;
+    grid-template-columns: repeat(3, 30fr);
+  }
+  .Environment, .Global, .Local, .back-button, .Cloud, .Coding, .Hardware, .Advisory, .Vacation, .Transportation{
+    display: inline-flexbox;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 20px;
+    background: linear-gradient(#0000, rgb(0 0 0/40%)) top/100% 800%;
+    background-color: rgb(27, 99, 117);
+    transition: 0.5s;
+    
+  }
+  .Enviroment:hover, .Global:hover, .Local:hover, .back-button:hover{
+    background-position: bottom;
+  }
+  .world_news_table, tr, th, td{
+    width: 50%;
+    color: #fff;
+
+    border: 1px solid;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .back-button{
+    font-size: 20px;
+    padding: 10px 250px;
+    margin: 0 auto;
+    display: block;
+  }
+  footer{
+    background-color: rgba(123, 122, 126, 0.836);
+
+    /* position: absolute; */
+    bottom: 0;
+    display: block;
+    width: 100%;
+    position:fixed;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+ 
