@@ -3,6 +3,7 @@ import { SSMClient, GetParameterCommand} from "@aws-sdk/client-ssm";
 import * as fs from 'fs';
 const arn = "arn:aws:iam::203662895152:role/java-sdk-role";
 const stsClient = new STSClient({ region: "us-east-2"});
+import mysql from 'mysql2';
 export const filePath = "data/api_data.json";
 
 
@@ -48,6 +49,51 @@ export async function gnews_fetch(full_url, dict, dict_name){
     })
     .catch(error => console.error('Error:', error));
   return {name: dict_name, data: dict};
+}
+
+export async function writemysql(dbName, tblName){
+  //connect to db without db specified
+  var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "password"
+  });
+
+  // create db if not exist, change to that db
+  con.connect(function(err){
+    if (err) throw err;
+    console.log("Connected!");
+    try {
+      con.query(`CREATE DATABASE IF NOT EXISTS ${dbName}`);
+      console.log(`Database ${dbName} created successfully.`);
+    } catch (error) {
+      console.error('Error creating database:', error);
+    }
+    con.changeUser({database: dbName}, function(err){
+      if (err) throw err;
+      console.log('Database Changed!');
+    });
+    //begin creation of table 
+    try{
+      con.query(`CREATE TABLE IF NOT EXISTS ${tblName}(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(255),
+        description TEXT)`)
+    } catch (error){
+      console.error('Error creating table:', error);
+    }
+    // insert data into table 
+    try{
+      var sql = `INSERT INTO ${tblName} (title, description) VALUES ('Breaking News!', 'we can write to sql now :o')`;
+      con.query(sql, function (err, result){
+        if(err) throw err;
+        console.log("Record Inserted!")
+      });
+    } catch (error){
+      console.error('Error Inserting data', error);
+    }
+    
+  });
 }
 
 export function writeArrayOfDictToJson(filePath, array) {
