@@ -4,14 +4,15 @@
 import { tech_savedata } from "./tech-news.js";
 import { world_savedata } from "./world-news.js";
 import { travel_savedata } from "./travel-news.js";
-import { filePath, writemysql } from "./api_run_functions.js";
+import { filePath, writemysql, env_data } from "./api_run_functions.js";
 import { writeFile } from 'fs/promises';
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // this resets the entire json file and then refreshes it with new information
 async function main(){
     try{
-        writemysql("worldnews", "Environment");
+        writemysql("worldnews", "Environment", env_data);
+
         // await writeFile(filePath, '');
         // console.log('File content erased successfully!');
         // await world_savedata();

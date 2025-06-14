@@ -6,7 +6,21 @@ const stsClient = new STSClient({ region: "us-east-2"});
 import mysql from 'mysql2';
 export const filePath = "data/api_data.json";
 
-
+export const env_data = {
+      "name": "Environment",
+      "data": {
+        "Massachusetts lifts critical drought status after above-normal rain": "State environmental officials have lifted the more critical drought status, although eastern parts of the state are still experiencing rainfall deficits.",
+        "Pakistan's Urgent Water Crisis: Government and Judiciary Act": "Facing severe drought threats, Pakistan's government prioritizes water storage and clean energy projects, while the Lahore High Court enforces strict measures on water wastage. Key projects like the Diamer-Basha Dam aim to double hydel capacity by 2030, offering economic and environmental benefits.",
+        "Designs for Manitoba flood prevention project to be completed this spring: minister": "WINNIPEG - The Manitoba government expects new designs of a long-promised flood prevention project will be completed later this year after the province asked the federal government to pause environmental",
+        "Pink paint slashed on U.S. Embassy in Ottawa as part of protest": "A protester sprayed pink paint on the U.S. Embassy in Ottawa Thursday, as part of a campaign by an environmental group calling for the creation of a “climate disaster protection agency” funded by the “ultra-rich.”",
+        "Destruction of Ukraine dam caused ‘toxic timebomb’ of heavy metals, study finds": "Researchers say environmental impact from Kakhovka dam explosion comparable to Chornobyl nuclear disaster",
+        "As countries scramble for minerals, the seabed beckons. Will mining it be a disaster? - visual explainer": "Mining companies are poised to mine the deep sea – but opposition is growing. What is the environmental cost, and are these metals actually needed?",
+        "How bad could the North Sea tanker collision be for the environment?": "An environmental group in the U.K. says the North Sea tanker collision could become a \"disaster in really important protected areas.\"",
+        "Fires continue to burn after ships collide off coast of England, stoking environmental concerns": "There are growing concerns that the jet fuel carried by one of the ships and the toxic chemicals aboard the other could cause an environmental disaster",
+        "North Sea collision has raised fears of an environmental disaster. Here’s what we know": "Fears are mounting of a potential environmental disaster off the coast of Britain after a cargo ship smashed into an oil tanker transporting jet fuel for the US military.",
+        "Environmental disaster as salmon die en masse in Tasmania": "Ebony Bennett: Mass salmon die-off in Tasmania threatens environment. Foreign-owned companies evade taxes while harming local ecology."
+      }
+    };
 
 export async function assume_role(){
   const command = new AssumeRoleCommand({
@@ -51,7 +65,7 @@ export async function gnews_fetch(full_url, dict, dict_name){
   return {name: dict_name, data: dict};
 }
 
-export async function writemysql(dbName, tblName){
+export async function writemysql(dbName, tblName, dataobject){
   //connect to db without db specified
   var con = mysql.createConnection({
     host: "localhost",
@@ -82,19 +96,27 @@ export async function writemysql(dbName, tblName){
     } catch (error){
       console.error('Error creating table:', error);
     }
-    // insert data into table 
+    // sort object and insert into table
     try{
-      var sql = `INSERT INTO ${tblName} (title, description) VALUES ('Breaking News!', 'we can write to sql now :o')`;
-      con.query(sql, function (err, result){
-        if(err) throw err;
-        console.log("Record Inserted!")
-      });
+      var data = dataobject['data']
+      for (let [key, value] of Object.entries(data)){
+        var sql = `INSERT INTO \`${tblName}\` (title, description) VALUES (?, ?)`;
+        con.query(sql, [key, value], function (err, result){
+          if(err){
+            console.error(`Error inserting key: "${key}"`, err);
+          } else{
+            console.log(`Inserted key: "${key}"`);
+          }
+          if(err) throw err;
+          console.log("Record Inserted!")
+        });
+      }
     } catch (error){
       console.error('Error Inserting data', error);
     }
     
   });
-}
+};
 
 export function writeArrayOfDictToJson(filePath, array) {
   fs.readFile(filePath, 'utf8', (readErr, fileData) => {
