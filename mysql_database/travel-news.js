@@ -1,6 +1,6 @@
 // scrape-and-save.js
 import * as cheerio from 'cheerio';
-import {assume_role, writeArrayOfDictToJson, filePath} from './api_run_functions.js';
+import {writemysql} from './api_run_functions.js';
 
 let travel_news_array = [];
 let advisory_data = {};
@@ -71,6 +71,7 @@ export async function travel_savedata(){
   const advisory_data = await advisoryList();
   const german_data = await german_events();
   const japan_data = await japan_events();
-  const travel_news_dict = {travel_news : [advisory_data, german_data, japan_data]};
-  writeArrayOfDictToJson(filePath, travel_news_dict);
+  await writemysql("travel_news", advisory_data['name'], advisory_data);
+  await writemysql("travel_news", german_data['name'], german_data);
+  await writemysql("travel_news", japan_data['name'], japan_data);
 }
