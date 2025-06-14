@@ -6,6 +6,7 @@ import { travel_savedata } from "./travel-news.js";
 async function main(){
     try{
         await world_savedata();
+        await delay(3000); // slight delay before moving to tech data
         await tech_savedata();
         await travel_savedata();
         
