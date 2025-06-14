@@ -72,7 +72,6 @@ export async function writemysql(dbName, tblName, dataobject) {
         description TEXT
       )
     `);
-
     const data = dataobject?.data || {};
     const insertSql = `INSERT INTO \`${tblName}\` (title, description) VALUES (?, ?)`;
 
