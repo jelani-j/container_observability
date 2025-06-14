@@ -1,7 +1,11 @@
 import { STSClient, AssumeRoleCommand } from "@aws-sdk/client-sts";
 import { SSMClient, GetParameterCommand} from "@aws-sdk/client-ssm";
+import { fromIni } from "@aws-sdk/credential-provider-ini";
 const arn = "arn:aws:iam::203662895152:role/java-sdk-role";
-const stsClient = new STSClient({ region: "us-east-2"});
+const stsClient = new STSClient({ 
+  region: "us-east-2",
+  credentials: fromIni({ filepath: "/home/node/.aws/credentials" })
+});
 import mysql from 'mysql2/promise';
 export const filePath = "data/api_data.json";
 
@@ -55,7 +59,7 @@ export async function gnews_fetch(full_url, dict_name){
 
 export async function writemysql(dbName, tblName, dataobject) {
   const con = await mysql.createConnection({
-    host: 'localhost',
+    host: 'host.docker.internal',
     user: 'root',
     password: 'password'
   });

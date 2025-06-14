@@ -17,4 +17,4 @@ CMD ["mysqld"]
 
 #docker build -t custom-mysql .
 
-#docker run -d -p 3306:3306 --name mysql-container custom-mysql
+#docker run -p 3306:3306 --name mysql-container custom-mysql

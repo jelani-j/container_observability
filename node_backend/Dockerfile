@@ -15,5 +15,4 @@ CMD ["npm", "start"]
 
 # docker build -t node-backend .
 
-# docker run -p 3000:3000 node-backend
-
+# docker run -p 3000:3000 -v C:\Users\Steve\.aws:/home/node/.aws node-backend
