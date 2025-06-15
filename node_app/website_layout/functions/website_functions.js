@@ -20,7 +20,7 @@ export function displayTable(data, table_title, outputElementId) {
     th.textContent = headerText;
     headerRow.appendChild(th);
   });
-  output.appendChild(headerRow);
+  table.appendChild(headerRow);
 
   data.forEach(entry => {
     const row = document.createElement('tr');
