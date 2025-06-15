@@ -1,18 +1,41 @@
-//Main file to refresh all run all news scripts
-import { tech_savedata } from "./tech-news.js";
-import { world_savedata } from "./world-news.js";
-import { travel_savedata } from "./travel-news.js";
-// this resets the entire json file and then refreshes it with new information
-async function main(){
-    try{
-        await world_savedata();
-        await delay(3000); // slight delay before moving to tech data
-        await tech_savedata();
-        await travel_savedata();
-        
-    } catch (err) {
-        console.error('An error occurred:', err);
-    }
-}
+//Main file to grab sql data from database
+import mysql from 'mysql2/promise';
+import express from 'express';
+import cors from 'cors';
 
-main();
+const api = express();
+api.use(cors());
+
+// establish database connection
+const db = await mysql.createConnection({
+    host: 'host.docker.internal',
+    user: 'root',
+    password: 'password',
+    port: 3306
+});
+
+//use data from front end to grab data in database
+api.get('/items', async (req, res) =>{
+    const dbName = req.query.db;
+    const tblName = req.query.table;
+    //in case name or table name is incorrect
+    if (!dbName || !tblName) {
+        return res.status(400).send("Missing db or table parameter.");
+    }
+    try{
+        // Switch to propper database
+        await db.changeUser({ database: `${dbName}`});
+        const getsql = `SELECT * FROM ${tblName}`;
+        const [results] = await db.query(getsql);
+        res.json(results);
+    }catch (err){
+        console.error("Error fetching table:", err);
+        res.status(500).send('Error fetching items.');
+    }
+    console.log("Successful Grab from", dbName, "table:", tblName);
+});
+
+//Open server 
+api.listen(3305, (res) => {
+console.log("Server Listening on port 3305");
+});
