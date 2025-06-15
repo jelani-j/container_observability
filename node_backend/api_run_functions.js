@@ -7,7 +7,6 @@ const stsClient = new STSClient({
   credentials: fromIni({ filepath: "/home/node/.aws/credentials" })
 });
 import mysql from 'mysql2/promise';
-export const filePath = "data/api_data.json";
 
 export async function assume_role(){
   const command = new AssumeRoleCommand({

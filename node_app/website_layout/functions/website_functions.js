@@ -1,39 +1,39 @@
-export async function displayTable(data, arrayName, sectionIndex, tablename) {
-  try{
-    const con = await mysql.createConnection({
-        host: 'host.docker.internal',
-        user: 'root',
-        password: 'password'
-    });
-    console.log("Test!");
-    const entry = data[arrayName]?.[sectionIndex];
-    
-    // const output = document.getElementById(tablename); // table-output
-    // output.innerHTML = ''; // clear previous content
-    // if (!entry) {
-    //   output.textContent = `No data found for ${arrayName}[${sectionIndex}]`;
-    //   return;
-    // }
-  
-    // const title = document.createElement('h2');
-    // title.textContent = 'Table Name: ' + entry.name;
-    // output.appendChild(title);
-    // //tech_output.appendChild(title);
-    
-    // const table = document.createElement('table');
-  
-    // Object.entries(entry.data || {}).forEach(([key, value]) => {
-    //   const row = document.createElement('tr');
-    //   row.innerHTML = `<td><strong>${key}</strong></td><td>${value}</td>`;
-    //   table.appendChild(row);
-    // });
-    // output.appendChild(table);
 
-  }catch(error){
-    console.log("Error is:", error);
+export function displayTable(data, entry, outputElementId) {
+  const output = document.getElementById(outputElementId);
+  output.innerHTML = ''; // Clear previous table
+
+  if (!Array.isArray(data) || data.length === 0) {
+    output.textContent = "No data found.";
+    return;
   }
-    
+
+  // Optional: title
+  const title = document.createElement('h2');
+  title.textContent = entry;
+  output.appendChild(title);
+
+  const table = document.createElement('table');
+
+  // Create table header from keys of the first row
+  const headerRow = document.createElement('tr');
+  Object.keys(data[0]).forEach(key => {
+    const th = document.createElement('th');
+    th.textContent = key;
+    headerRow.appendChild(th);
+  });
+  table.appendChild(headerRow);
+
+  // Fill table rows
+  data.forEach(entry => {
+    const row = document.createElement('tr');
+    Object.values(entry).forEach(value => {
+      const td = document.createElement('td');
+      td.textContent = value;
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+
+  output.appendChild(table);
 }
-
-
-displayTable();

@@ -12,3 +12,6 @@ COPY website_layout/ /usr/share/nginx/html/
 
 # Expose port 80
 EXPOSE 80
+
+#docker build -t minimal-website .
+#docker run -p 80:80 minimal-website
