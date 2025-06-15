@@ -2,82 +2,116 @@ import {displayTable} from './website_functions.js';
 
 // World News Triggers
 document.addEventListener('DOMContentLoaded', () => {
-    // Fetch JSON once and cache it
-    let jsonData = null;
-    //create function to display data to page via key/value pair to table
-    //grab actual data from json file here
-    fetch('data/api_data.json')
-      .then(response => {
-        if (!response.ok) throw new Error('Failed to load JSON');
-        return response.json();
-      })
-      .then(data => {
-        jsonData = data;
-        // Add button event listeners here
-        //global news page
-        document.getElementById('environment_news_button').addEventListener('click', () => {
-          displayTable(jsonData, 'world_news', 0, 'table-output');
-        });
-        document.getElementById('global_news_button').addEventListener('click', () => {
-          displayTable(jsonData, 'world_news', 1, 'table-output');
-        });
-        document.getElementById('local_news_button').addEventListener('click', () => {
-          displayTable(jsonData, 'world_news', 2, 'table-output');
-        });
-      });
+  
+  document.getElementById('environment_news_button').addEventListener('click', async () => {
+    try{
+      const response = await fetch('http://localhost:3305/items?db=world_news&table=Environment');
+      if (!response.ok) throw new Error('Failed to fetch data');
+      const data = await response.json();
+      displayTable(data, 'table-output');
+    }catch (err){
+      console.log("Issue Calling Environment Table", err);
+    }
+  });
+  
+  document.getElementById('global_news_button').addEventListener('click', async () => {
+    try{
+      const response = await fetch('http://localhost:3305/items?db=world_news&table=Global');
+      if (!response.ok) throw new Error('Failed to fetch data');
+      const data = await response.json();
+      displayTable(data, 'table-output');
+    } catch (err){
+      console.log("Issue grabbing Global table ", err)
+    }
+  });
+  
+  document.getElementById('global_news_button').addEventListener('click', async () => {
+    try{
+      const response = await fetch('http://localhost:3305/items?db=world_news&table=Local');
+      if (!response.ok) throw new Error('Failed to fetch data');
+      const data = await response.json();
+      displayTable(data, 'table-output');
+    } catch (err){
+      console.log("Issue grabbing Local table ", err)
+    }
+  });
+  
+  
 });
 
-// Tech News Triggers
+//tech news
 document.addEventListener('DOMContentLoaded', () => {
-  // Fetch JSON once and cache it
-  let jsonData = null;
-  //grab actual data from json file here
-  fetch('data/api_data.json')
-    .then(response => {
-      if (!response.ok) throw new Error('Failed to load JSON');
-      return response.json();
-    })
-    .then(data => {
-      jsonData = data;
-      // Add button event listeners here
-      // tech news page
-      document.getElementById('cloud_news_button').addEventListener('click', () => {
-        displayTable(jsonData, 'tech_news', 0, 'table-output-tech');
-      });
-      document.getElementById('software_news_button').addEventListener('click', () => {
-        displayTable(jsonData, 'tech_news', 1, 'table-output-tech');
-      });
-      document.getElementById('hardware_news_button').addEventListener('click', () => {
-        displayTable(jsonData, 'tech_news', 2, 'table-output-tech');
-      });
-
-    });
-});
-
-//Travel News Triggers
-document.addEventListener('DOMContentLoaded', () => {
-  // Fetch JSON once and cache it
-  let jsonData = null;
-  //grab actual data from json file here
-  fetch('data/api_data.json')
-    .then(response => {
-      if (!response.ok) throw new Error('Failed to load JSON');
-      return response.json();
-    })
-    .then(data => {
-      jsonData = data;
-      // Add button event listeners here
-      // tech news page
-      document.getElementById('advisory_news_button').addEventListener('click', () => {
-        displayTable(jsonData, 'travel_news', 0, 'table-output-travel');
-      });
-      document.getElementById('vacation_news_button').addEventListener('click', () => {
-        displayTable(jsonData, 'travel_news', 1, 'table-output-travel');
-      });
-      document.getElementById('transportation_news_button').addEventListener('click', () => {
-        displayTable(jsonData, 'travel_news', 2, 'table-output-travel');
-      });
-
-    });
+  
+  document.getElementById('cloud_news_button').addEventListener('click', async () => {
+    try{
+      const response = await fetch('http://localhost:3305/items?db=tech_news&table=Cloud');
+      if (!response.ok) throw new Error('Failed to fetch data');
+      const data = await response.json();
+      displayTable(data, 'table-output-tech');
+    } catch (err){
+      console.log("Issue Calling Cloud Table", err);
+    }
+  });
     
+  document.getElementById('software_news_button').addEventListener('click', async () => {
+    try{
+      const response = await fetch('http://localhost:3305/items?db=tech_news&table=Coding');
+      if (!response.ok) throw new Error('Failed to fetch data');
+      const data = await response.json();
+      displayTable(data, 'table-output-tech');
+    } catch (err){
+      console.log("Issue grabbing Coding table ", err)
+    }
+  });
+  
+  document.getElementById('hardware_news_button').addEventListener('click', async () => {
+    try{
+      const response = await fetch('http://localhost:3305/items?db=tech_news&table=Hardware');
+      if (!response.ok) throw new Error('Failed to fetch data');
+      const data = await response.json();
+      displayTable(data, 'table-output-tech');
+    } catch (err){
+      console.log("Issue grabbing Hardware table ", err)
+    }
+  });
+  
+  
+});
+
+//Travel News
+document.addEventListener('DOMContentLoaded', () => {
+
+  document.getElementById('cloud_news_button').addEventListener('click', async () => {
+    try{
+      const response = await fetch('http://localhost:3305/items?db=travel_news&table=Advisory');
+      if (!response.ok) throw new Error('Failed to fetch data');
+      const data = await response.json();
+      displayTable(data, 'table-output-travel');
+    } catch (err){
+      console.log("Issue Calling Advisory Table", err);
+    }
+  });
+  
+  document.getElementById('software_news_button').addEventListener('click', async () => {
+    try{
+      const response = await fetch('http://localhost:3305/items?db=travel_news&table=Germany');
+      if (!response.ok) throw new Error('Failed to fetch data');
+      const data = await response.json();
+      displayTable(data, 'table-output-travel');
+    } catch (err){
+      console.log("Issue grabbing Germany table ", err)
+    }
+  });
+  
+  document.getElementById('hardware_news_button').addEventListener('click', async () => {
+    try{
+      const response = await fetch('http://localhost:3305/items?db=travel_news&table=Japan');
+      if (!response.ok) throw new Error('Failed to fetch data');
+      const data = await response.json();
+      displayTable(data, 'table-output-travel');
+    } catch (err){
+      console.log("Issue grabbing Japan table ", err)
+    }
+  });
+  
 });
