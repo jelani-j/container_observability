@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  document.getElementById('global_news_button').addEventListener('click', async () => {
+  document.getElementById('local_news_button').addEventListener('click', async () => {
     try{
       const response = await fetch('http://host.docker.internal:3305/items?db=world_news&table=Local');
       if (!response.ok) throw new Error('Failed to fetch data');
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //Travel News
 document.addEventListener('DOMContentLoaded', () => {
 
-  document.getElementById('cloud_news_button').addEventListener('click', async () => {
+  document.getElementById('advisory_news_button').addEventListener('click', async () => {
     try{
       const response = await fetch('http://host.docker.internal:3305/items?db=travel_news&table=Advisory');
       if (!response.ok) throw new Error('Failed to fetch data');
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  document.getElementById('software_news_button').addEventListener('click', async () => {
+  document.getElementById('vacation_news_button').addEventListener('click', async () => {
     try{
       const response = await fetch('http://host.docker.internal:3305/items?db=travel_news&table=Germany');
       if (!response.ok) throw new Error('Failed to fetch data');
@@ -103,12 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  document.getElementById('hardware_news_button').addEventListener('click', async () => {
+  document.getElementById('transportation_news_button').addEventListener('click', async () => {
     try{
       const response = await fetch('http://host.docker.internal:3305/items?db=travel_news&table=Japan');
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
-      displayTable(data, 'Hardware', 'table-output-travel');
+      displayTable(data, 'Japan', 'table-output-travel');
     } catch (err){
       console.log("Issue grabbing Japan table ", err)
     }

@@ -1,39 +1,36 @@
 
-export function displayTable(data, entry, outputElementId) {
+export function displayTable(data, table_title, outputElementId) {
   const output = document.getElementById(outputElementId);
-  output.innerHTML = ''; // Clear previous table
-
+  output.innerHTML = ''; // clear the table 
   if (!Array.isArray(data) || data.length === 0) {
     output.textContent = "No data found.";
     return;
   }
-
-  // Optional: title
+  // Title of the table
   const title = document.createElement('h2');
-  title.textContent = entry;
+  title.textContent = table_title;
   output.appendChild(title);
 
+  //create table and rows
   const table = document.createElement('table');
 
-  // Create table header from keys of the first row
   const headerRow = document.createElement('tr');
-  Object.keys(data[0]).forEach(key => {
+  ['Title', 'Description'].forEach(headerText => {
     const th = document.createElement('th');
-    th.textContent = key;
+    th.textContent = headerText;
     headerRow.appendChild(th);
   });
-  table.appendChild(headerRow);
+  output.appendChild(headerRow);
 
-  // Fill table rows
   data.forEach(entry => {
     const row = document.createElement('tr');
-    Object.values(entry).forEach(value => {
+    const { title, description } = entry;
+    [title, description].forEach(value => {
       const td = document.createElement('td');
       td.textContent = value;
       row.appendChild(td);
-    });
+    })
     table.appendChild(row);
   });
-
   output.appendChild(table);
 }
