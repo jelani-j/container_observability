@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: custom-mysql
+spec:
+  replicas: 1 # Desired number of pods
+  selector:
+    matchLabels:
+      app: custom-mysql
+  template:
+    metadata:
+      labels:
+        app: custom-mysql
+    spec:
+      containers:
+        - name: mysql
+          image: jelanij/custom-mysql:v1.0
+          ports:
+            - containerPort: 3306

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-backend
+spec:
+  replicas: 1 # Desired number of pods
+  selector:
+    matchLabels:
+      app: node-backend
+  template:
+    metadata:
+      labels:
+        app: node-backend
+    spec:
+      containers:
+        - name: jelanij/node-backend:v1.0
+          image: minimal-website 
+          ports:
+            - containerPort: 3305

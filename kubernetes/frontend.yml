@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minimal-website
+spec:
+  replicas: 1 # Desired number of pods
+  selector:
+    matchLabels:
+      app: minimal-website
+  template:
+    metadata:
+      labels:
+        app: minimal-website
+    spec:
+      containers:
+        - name: jelanij/minimal-website:v1.0
+          image: minimal-website 
+          ports:
+            - containerPort: 80
