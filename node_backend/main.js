@@ -11,7 +11,7 @@ const db = await mysql.createConnection({
     host: 'host.docker.internal',
     user: 'root',
     password: 'password',
-    port: 3305
+    port: 3306
 });
 
 //use data from front end to grab data in database

@@ -2,8 +2,9 @@
 import { tech_savedata } from "./tech-news.js";
 import { world_savedata } from "./world-news.js";
 import { travel_savedata } from "./travel-news.js";
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // this resets the entire json file and then refreshes it with new information
-async function main(){
+async function dataingest(){
     try{
         await world_savedata();
         await delay(3000); // slight delay before moving to tech data
@@ -15,4 +16,4 @@ async function main(){
     }
 }
 
-main();
+dataingest();

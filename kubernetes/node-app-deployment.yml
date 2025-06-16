@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minimal-website-deployment
+spec:
+  replicas: 1 # Desired number of pods
+  selector:
+    matchLabels:
+      app: minimal-website
+  template:
+    metadata:
+      labels:
+        app: minimal-website
+    spec:
+      containers:
+        - name: front_end_container
+          image: minimal-website 
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bb-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    bb: web
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 80

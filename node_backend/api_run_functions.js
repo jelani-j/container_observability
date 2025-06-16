@@ -60,7 +60,8 @@ export async function writemysql(dbName, tblName, dataobject) {
   const con = await mysql.createConnection({
     host: 'host.docker.internal',
     user: 'root',
-    password: 'password'
+    password: 'password',
+    port: 3306
   });
 
   try {
