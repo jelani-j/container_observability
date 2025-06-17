@@ -13,7 +13,11 @@ spec:
         app: node-backend
     spec:
       containers:
-        - name: jelanij/node-backend:v1.0
-          image: minimal-website 
+        - name: node-backend
+          image: jelanij/node-backend:v1.0
           ports:
             - containerPort: 3305
+          env:
+            - name: DB_HOST
+              value: "custom-mysql"  # Kubernetes service name for the DB
+            

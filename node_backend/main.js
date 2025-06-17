@@ -8,7 +8,7 @@ api.use(cors());
 
 // establish database connection
 const db = await mysql.createConnection({
-    host: 'host.docker.internal',
+    host: process.env.DB_HOST || 'host.docker.internal',
     user: 'root',
     password: 'password',
     port: 3306

@@ -30,3 +30,4 @@ spec:
   ports:
     - port: 3305
       targetPort: 3305
+type: NodePort

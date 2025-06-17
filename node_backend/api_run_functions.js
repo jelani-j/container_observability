@@ -58,7 +58,7 @@ export async function gnews_fetch(full_url, dict_name){
 
 export async function writemysql(dbName, tblName, dataobject) {
   const con = await mysql.createConnection({
-    host: 'host.docker.internal',
+    host: process.env.DB_HOST || 'host.docker.internal',
     user: 'root',
     password: 'password',
     port: 3306

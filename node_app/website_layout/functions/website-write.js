@@ -1,11 +1,12 @@
 import {displayTable} from './website_functions.js';
 
+var host = process.env.BE_HOST || 'host.docker.internal'
 // World News Triggers
 document.addEventListener('DOMContentLoaded', () => {
   
   document.getElementById('environment_news_button').addEventListener('click', async () => {
     try{
-      const response = await fetch('http://host.docker.internal:3305/items?db=world_news&table=Environment');
+      const response = await fetch(`http://${host}:3305/items?db=world_news&table=Environment`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
       displayTable(data, 'Environment', 'table-output');
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.getElementById('global_news_button').addEventListener('click', async () => {
     try{
-      const response = await fetch('http://host.docker.internal:3305/items?db=world_news&table=Global');
+      const response = await fetch(`http://${host}:3305/items?db=world_news&table=Global`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
       displayTable(data, 'Global', 'table-output');
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.getElementById('local_news_button').addEventListener('click', async () => {
     try{
-      const response = await fetch('http://host.docker.internal:3305/items?db=world_news&table=Local');
+      const response = await fetch(`http://${host}:3305/items?db=world_news&table=Local`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
       displayTable(data, 'Local', 'table-output');
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.getElementById('cloud_news_button').addEventListener('click', async () => {
     try{
-      const response = await fetch('http://host.docker.internal:3305/items?db=tech_news&table=Cloud');
+      const response = await fetch(`http://${host}:3305/items?db=tech_news&table=Cloud`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
       displayTable(data, 'Cloud', 'table-output-tech');
@@ -55,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
   document.getElementById('software_news_button').addEventListener('click', async () => {
     try{
-      const response = await fetch('http://host.docker.internal:3305/items?db=tech_news&table=Coding');
+      const response = await fetch(`http://${host}:3305/items?db=tech_news&table=Coding`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
       displayTable(data, 'Coding', 'table-output-tech');
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.getElementById('hardware_news_button').addEventListener('click', async () => {
     try{
-      const response = await fetch('http://host.docker.internal:3305/items?db=tech_news&table=Hardware');
+      const response = await fetch(`http://${host}:3305/items?db=tech_news&table=Hardware`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
       displayTable(data, 'Hardware', 'table-output-tech');
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('advisory_news_button').addEventListener('click', async () => {
     try{
-      const response = await fetch('http://host.docker.internal:3305/items?db=travel_news&table=Advisory');
+      const response = await fetch(`http://${host}:3305/items?db=travel_news&table=Advisory`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
       displayTable(data, 'Advisory', 'table-output-travel');
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.getElementById('vacation_news_button').addEventListener('click', async () => {
     try{
-      const response = await fetch('http://host.docker.internal:3305/items?db=travel_news&table=Germany');
+      const response = await fetch(`http://${host}:3305/items?db=travel_news&table=Germany`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
       displayTable(data, 'Germany', 'table-output-travel');
@@ -105,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.getElementById('transportation_news_button').addEventListener('click', async () => {
     try{
-      const response = await fetch('http://host.docker.internal:3305/items?db=travel_news&table=Japan');
+      const response = await fetch(`http://${host}:3305/items?db=travel_news&table=Japan`);
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
       displayTable(data, 'Japan', 'table-output-travel');
