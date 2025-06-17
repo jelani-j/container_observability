@@ -3,6 +3,11 @@ apiVersion: kind.x-k8s.io/v1alpha4
 name: kubeobserve
 nodes:
   - role: control-plane
+    extraMounts:
+      - hostPath: C:\Users\Steve\.aws # place your filepath to your aws credentials here
+        containerPath: /home/node/.aws # where it can be found in the control plane
   - role: worker
   - role: worker
+  
+#kind delete cluster --name kubeobserve
 #kind create cluster --name kubeobserve --config kind-config.yaml

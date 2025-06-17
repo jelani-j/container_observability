@@ -3,31 +3,36 @@ kind: Service
 metadata:
   name: custom-mysql
 spec:
+  type: NodePort
   selector:
     app: custom-mysql
   ports:
     - port: 3306
       targetPort: 3306
+      nodePort: 30306   # host port to expose, must be 30000-32767
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: minimal-website
 spec:
+  type: NodePort
   selector:
     app: minimal-website
   ports:
     - port: 80
       targetPort: 80
+      nodePort: 30380   # host port to expose, must be 30000-32767
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: node-backend
 spec:
+  type: NodePort
   selector:
     app: node-backend
   ports:
     - port: 3305
       targetPort: 3305
-type: NodePort
+      nodePort: 30305   # host port to expose, must be 30000-32767

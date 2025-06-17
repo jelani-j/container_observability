@@ -20,4 +20,9 @@ spec:
           env:
             - name: DB_HOST
               value: "custom-mysql"  # Kubernetes service name for the DB
-            
+      volumes:
+          - name: aws-credentials
+            hostPath:
+              path: /home/node/.aws
+              type: Directory
+              
