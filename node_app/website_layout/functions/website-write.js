@@ -1,6 +1,8 @@
 import {displayTable} from './website_functions.js';
 
-var host = process.env.BE_HOST || 'host.docker.internal'
+// since this is a browser it cant access env variables, rework this in order for the buttons to work 
+const isBrowser = typeof window !== 'undefined';
+const host = isBrowser ? window.location.hostname : 'node-backend'; 
 // World News Triggers
 document.addEventListener('DOMContentLoaded', () => {
   

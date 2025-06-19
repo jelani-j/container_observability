@@ -14,9 +14,10 @@ spec:
     spec:
       containers:
         - name: minimal-website
-          image: jelanij/minimal-website:v1.0
+          image: jelanij/minimal-website:v1.1
           ports:
             - containerPort: 80
           env:
             - name: BE_HOST
-              value: "backend-service" # Kubernetes service name for the Backend
+              value: "node-backend" # Kubernetes service name for the Backend
+          imagePullPolicy: Always

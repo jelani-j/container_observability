@@ -12,6 +12,15 @@ spec:
       labels:
         app: node-backend
     spec:
+      # initContainers: # run this if no data in database
+      #   - name: node-backend-ingest
+      #     image: jelanij/node-backend:v1.0
+      #     command: ["node", "data-ingest.js"]
+      #     ports:
+      #       - containerPort: 3309
+      #     env:
+      #       - name: DB_HOST
+      #         value: "custom-mysql"
       containers:
         - name: node-backend
           image: jelanij/node-backend:v1.0
@@ -20,9 +29,12 @@ spec:
           env:
             - name: DB_HOST
               value: "custom-mysql"  # Kubernetes service name for the DB
+          # volumeMounts:
+          #   - name: aws-credentials
+          #     mountPath: /home/node/.aws
+          #     readOnly: true
       volumes:
           - name: aws-credentials
-            hostPath:
-              path: /home/node/.aws
-              type: Directory
+            secret:
+              secretName: aws-credentials
               
